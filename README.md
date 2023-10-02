@@ -1,27 +1,31 @@
-# ExamDashboardMariamBril
+# Application de Gestion d'Examens de Conduite
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
+Cette application Angular gère les réservations et les candidats pour les examens de conduite. Voici un aperçu de chaque module et service dans l'application :
 
-## Development server
+## 1. `DashboardComponent`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Ce composant représente le tableau de bord de l'application. Il affiche diverses statistiques et graphiques liés aux examens de conduite.
 
-## Code scaffolding
+## 2. `InscriptionComponent`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Ce composant permet aux utilisateurs de s'inscrire pour passer un examen de conduite en saisissant leurs informations telles que la date d'examen, le prénom, le nom, l'adresse e-mail et le numéro de téléphone.
 
-## Build
+## 3. `ReservationComponent`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Ce composant gère le processus de réservation pour les examens de conduite. Les utilisateurs peuvent sélectionner une date d'examen et saisir leurs coordonnées.
 
-## Running unit tests
+## Services :
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 1. `ExamDateService`
 
-## Running end-to-end tests
+Un service pour gérer les dates disponibles pour les examens de conduite. Il fournit des méthodes pour obtenir toutes les dates d'examen et les dates disponibles.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 2. `CandidateService`
 
-## Further help
+Un service pour gérer les candidats qui s'inscrivent pour passer un examen de conduite. Il permet d'ajouter un candidat, de récupérer la liste des candidats, etc.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### 3. `PaymentService`
+
+Un service pour gérer les paiements liés aux examens de conduite. Il permet d'ajouter un paiement, de récupérer la liste des paiements et de gérer les paiements impayés.
+
+---

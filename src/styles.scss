@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+:root {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: "Open Sans", sans-serif;
+    background: #f6f9ff;
+    color: #444444;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Nunito", sans-serif;
+  }
+  body {
+    font-family: "Inter UI", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #252529;
+    -webkit-font-smoothing: antialiased;
+   // background-color: #F4EDCA;
+  }

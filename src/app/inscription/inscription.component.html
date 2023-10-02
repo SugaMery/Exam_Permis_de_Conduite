@@ -1,0 +1,121 @@
+<!-- Header -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/logo.png" alt="">
+            <span class="d-none d-lg-block">Drive Exam</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn" (click)="toggleSidebar()"></i>
+    </div>
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+            <li class="nav-item dropdown pe-3">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="assets/logo.png" alt="Profil" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">Mariam Bril</span>
+                </a>
+                <!-- Le contenu du menu déroulant peut être ajouté ici -->
+            </li>
+        </ul>
+        <p-messages></p-messages>
+    </nav>
+</header>
+
+<!-- Barre latérale -->
+<aside id="sidebar" class="sidebar" *ngIf="isSidebarVisible">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link collapsed" routerLink="/">
+                <i class="bi bi-grid"></i>
+                <span>Tableau de bord</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" routerLink="/reservation">
+                <i class="bi bi-journal-text"></i>
+                <span>Réservation</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/inscription">
+                <i class="bi bi-card-list"></i>
+                <span>Passer l'examen</span>
+            </a>
+        </li>
+    </ul>
+</aside><!-- Fin de la barre latérale -->
+
+<!-- Contenu principal -->
+<main id="main" class="main" [ngClass]="{'with-sidebar': isSidebarVisible}">
+    <form class="quick-reservation">
+        <div class="container">
+            <header class="quick-reservation__header">
+                <h2 class="title">
+                    Inscription pour passer l'examen de conduite
+                </h2>
+            </header>
+            <div class="quick-reservation__form">
+                <form (ngSubmit)="submitReservationForm()">
+                    <section class="form__content">
+                        <!-- Date de l'examen et montant du paiement -->
+                        <div class="row-wrapper">
+                            <div class="examDate rate-type">
+                                <label for="examDate">Date d'examen</label>
+                                <select [(ngModel)]="selectedExamDate" (ngModelChange)="onSelectedExamDateChange()" name="examDate" id="examDate" required>
+                                    <option *ngFor="let examDate of availableExamDates" [value]="examDate.date">{{ examDate.date }}</option>
+                                </select>
+                            </div>
+                            <div class="ele first-name creditCart">
+                                <label for="paymentAmount">Montant du paiement</label>
+                                <input type="text" [(ngModel)]="paymentAmount" name="paymentAmount" placeholder="Saisissez le Montant " id="paymentAmount" required>
+                            </div>
+                        </div>
+                        <!-- Prénom et nom de famille -->
+                        <div class="row-wrapper">
+                            <div class="ele first-name">
+                                <label for="firstName">Prénom</label>
+                                <input type="text" [(ngModel)]="firstName" name="firstName" placeholder="Prénom" id="firstName" required>
+                            </div>
+                            <div class="ele last-name">
+                                <label for="lastName">Nom de famille</label>
+                                <input type="text" [(ngModel)]="lastName" name="lastName" placeholder="Nom de famille" id="lastName" required>
+                            </div>
+                        </div>
+                        <!-- Adresse e-mail et numéro de téléphone -->
+                        <div class="row-wrapper">
+                            <div class="ele email-address">
+                                <label for="emailAddress">Adresse e-mail</label>
+                                <input type="email" [(ngModel)]="emailAddress" name="emailAddress" placeholder="Saisissez votre adresse e-mail" id="emailAddress" required>
+                            </div>
+                            <div class="ele phone-number">
+                                <label for="phoneNumber">Numéro de téléphone</label>
+                                <input type="text" [(ngModel)]="phoneNumber" name="phoneNumber" placeholder="Saisissez votre numéro de téléphone" id="phoneNumber" required>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+            <!-- Informations de Inscription -->
+            <div class="reservation-info">
+                <div class="ele data">
+                    <h4 class="data__head">Date Sélectionnée</h4>
+                    <p class="data__description">{{selectedExamDate}}</p>
+                </div>
+                <div class="ele data" *ngIf="firstName">
+                    <h4 class="data__head">Nom et Prénom</h4>
+                    <p class="data__description">{{firstName}} {{lastName}}</p>
+                </div>
+                <div class="ele data">
+                    <h4 class="data__head" *ngIf="examAmount">Montant de l'examen</h4>
+                    <p class="data__description">{{examAmount}}</p>
+                </div>
+            </div>
+            <!-- Pied de formulaire avec le bouton de soumission -->
+            <footer class="form__footer">
+                <div class="footer-wrapper">
+                    <button type="button" (click)="submitReservationForm()">Passer l'examen</button>
+                </div>
+            </footer>
+        </div>
+    </form>
+</main>

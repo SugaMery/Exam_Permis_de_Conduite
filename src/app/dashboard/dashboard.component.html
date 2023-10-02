@@ -1,0 +1,229 @@
+<!-- ======= En-tête (Header) ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/logo.png" alt="">
+        <span class="d-none d-lg-block">Drive Exam</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn" (click)="toggleSidebar()"></i>
+    </div><!-- Fin du Logo -->
+  
+    <!-- Barre de recherche (Search Bar) - À compléter si nécessaire -->
+  
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+  
+      <!-- Icônes de navigation - À compléter si nécessaire -->
+  
+        <li class="nav-item dropdown pe-3">
+  
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"  aria-expanded="false">
+            <img src="assets/logo.png" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Mariam Bril</span>
+          </a>
+         
+        </li>
+  
+      </ul>
+    </nav><!-- Fin de la Navigation par Icônes -->
+  
+  </header><!-- Fin de l'En-tête (Header) -->
+  
+  <!-- Barre latérale (Sidebar) - À condition que la variable *ngIf="isSidebarVisible" soit vraie -->
+  <aside id="sidebar" class="sidebar" *ngIf="isSidebarVisible"> 
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/">
+          <i class="bi bi-grid"></i>
+          <span>Tableau de bord</span>
+        </a>
+      </li> 
+      <li class="nav-item">
+          <a class="nav-link collapsed" routerLink="/reservation">
+            <i class="bi bi-journal-text"></i>
+            <span>Réservation</span>
+          </a>
+        </li> 
+      <li class="nav-item">
+          <a class="nav-link collapsed" routerLink="/inscription">
+            <i class="bi bi-card-list"></i>
+            <span>Passer l'examen</span>
+          </a>
+        </li>  
+    </ul>
+  </aside><!-- Fin de la Barre latérale (Sidebar) -->
+  
+  <!-- Contenu principal (Main) -->
+  <main id="main" class="main" [ngClass]="{'with-sidebar': isSidebarVisible}">
+  
+     <!-- Contenu principal de la page - Ajoutez des commentaires ici pour expliquer la structure -->
+  
+     <div class="layout-wrapper layout-topbar-blue layout-slim layout-menu-light">
+          <div class="layout-main">
+              <div class="layout-content">
+                  <div class="grid layout-dashboard">
+                      <!-- Colonne 1 -->
+                      <div class="col-12 md:col-6 lg:col-3">
+                          <div class="overview-box card">
+                              <div class="overview-box-value">{{formatNumberWithZeroPrefix(candidateCounts)}}</div>
+                              <div class="overview-box-title">{{ 'Total de Candidats' | uppercase }}</div>
+                              <img src="assets/graph.svg" alt="">
+                              <div class="overview-box-status"> 100% <i class="pi pi-arrow-circle-up"></i></div>
+                          </div>
+                      </div>
+                      <!-- Colonne 2 -->
+                      <div class="col-12 md:col-6 lg:col-3">
+                          <div class="overview-box card">
+                              <div class="overview-box-value">{{formatNumberWithZeroPrefix(totalAvailableSlots)}}</div>
+                              <div class="overview-box-title">{{ 'Total créneaux disponibles' | uppercase }}</div>
+                              <img src="assets/graph2.svg" alt="">
+                              <div class="overview-box-status"> 100% <i class="pi pi-arrow-circle-up"></i></div>
+                          </div>
+                      </div>
+                      <!-- Colonne 3 -->
+                      <div class="col-12 md:col-6 lg:col-3">
+                          <div class="overview-box card">
+                              <div class="overview-box-value">{{formatNumberWithZeroPrefix(successRate)}}</div>
+                              <div class="overview-box-title">{{ 'Taux de réussite' | uppercase }}</div>
+                              <img src="assets/graph3.svg" alt="">
+                              <div class="overview-box-status"> {{pourcentageSuccessRate.toFixed(2)}}% <i class="pi pi-arrow-circle-up"></i></div>
+                          </div>
+                      </div>
+                      <!-- Colonne 4 -->
+                      <div class="col-12 md:col-6 lg:col-3">
+                          <div class="overview-box card">
+                              <div class="overview-box-value">{{formatNumberWithZeroPrefix(paymentCounts)}}</div>
+                              <div class="overview-box-title">{{ 'Total des paiments' | uppercase }}</div>
+                              <img src="assets/graph4.svg" alt="">
+                              <div class="overview-box-status"> 100% <i class="pi pi-arrow-circle-up"></i></div>
+                          </div>
+                      </div>
+                      <!-- Colonne 5 -->
+                      <div  class="col-12 md:col-8 lg:col-8">
+                          <div  class="card card-w-title">
+                              <h5 >{{"Nombre de places disponibles par date d'examen" | uppercase}}</h5>
+                              <apx-chart 
+                              [series]="chartOptions.series!"
+                              [chart]="chartOptions.chart!"
+                              [xaxis]="chartOptions.xaxis!"
+                              [stroke]="chartOptions.stroke!"
+                              [tooltip]="chartOptions.tooltip!"
+                              [dataLabels]="chartOptions.dataLabels!"
+                            ></apx-chart>
+                          </div>
+                      </div>
+                      <!-- Colonne 6 -->
+                      <div class="col-12 md:col-4 lg:col-4">
+                      <div  class="timeline card card-w-title">
+                          <h5 >{{"Répartition des paiements" | uppercase}}</h5>
+                          <apx-chart
+                          [series]="chartOptions1.series!"
+                          [chart]="chartOptions1.chart!"
+                          [labels]="chartOptions1.labels!"
+                          [responsive]="chartOptions1.responsive!"
+                        ></apx-chart>
+                      </div>
+                     </div>
+                      <!-- Colonne 7 -->
+                      <div  class="col-12 md:col-4 lg:col-4">
+                          <div  class="card card-w-title">
+                              <h5 >{{'Taux de réussite des candidatures' | uppercase}}</h5>
+  
+                              <div id="chart2">
+                                  <apx-chart
+                                    [series]="chartOptions2.series!"
+                                    [chart]="chartOptions2.chart!"
+                                    [labels]="chartOptions2.labels!"
+                                    [responsive]="chartOptions2.responsive!"
+                                  ></apx-chart>
+                                </div>
+                          
+                          </div>
+                      </div>
+                      <!-- Colonne 8 -->
+                      <div class="col-12 md:col-8 lg:col-8">
+                          <div class="card">
+                              <p-table
+                                #dt
+                                [value]="examDates" 
+                                dataKey="id"
+                                [rows]="10"
+                                [showCurrentPageReport]="true"
+                                [rowsPerPageOptions]="[10, 25, 50]"
+                                [paginator]="true"
+                                currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées"
+                                [globalFilterFields]="['availableSlots','montantExamen','date']"
+                              >
+                                <!-- En-tête du tableau -->
+                                <ng-template pTemplate="caption">
+                                  <div class="flex">
+                                    <button
+                                      pButton
+                                      label="Effacer"
+                                      class="p-button-outlined"
+                                      icon="pi pi-filter-slash"
+                                      (click)="clear(dt)"
+                                    ></button>
+                                    <span class="p-input-icon-left ml-auto">
+                                      <i class="pi pi-search"></i>
+                                      <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Chercher ..." />
+                                    </span>
+                                  </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                  <tr>
+                                    <th style="min-width: 15rem">
+                                      <div class="flex align-items-center">
+                                        ID
+                                      </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                      <div class="flex align-items-center">
+                                        Date
+                                      </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                      <div class="flex align-items-center">
+                                        Montant <!-- Ajoutez une colonne pour le montant -->
+                                      </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                      <div class="flex align-items-center">
+                                        Places Disponibles <!-- Ajoutez une colonne pour le nombre de places disponibles -->
+                                      </div>
+                                    </th>
+                                  </tr>
+                                </ng-template>
+                                <!-- Lignes du tableau -->
+                                <ng-template pTemplate="body" let-examDate>
+                                  <tr>
+                                    <td>
+                                      {{ examDate.id }}
+                                    </td>
+                                    <td>
+                                      {{ examDate.date | date: 'MM/dd/yyyy' }}
+                                    </td>
+                                    <td>
+                                      {{ examDate.montantExamen | currency: '$':'symbol' }} <!-- Affichez le montant avec le format de devise -->
+                                    </td>
+                                    <td>
+                                      {{ examDate.availableSlots }} <!-- Affichez le nombre de places disponibles -->
+                                    </td>
+                                  </tr>
+                                </ng-template>
+                                <!-- Message pour le cas où aucune donnée n'est disponible -->
+                                <ng-template pTemplate="emptymessage">
+                                  <tr>
+                                    <td colspan="4">Aucun examen trouvé.</td>
+                                  </tr>
+                                </ng-template>
+                              </p-table>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+  </main><!-- Fin du Contenu principal (Main) -->
+  
